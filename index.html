@@ -1,104 +1,66 @@
-<!DOCTYPE html>
-<html>
+---
+layout: default
+menu: home
+css: ['index.css', 'sidebar-popular-repo.css']
+---
+<section class="jumbotron">
+    <div class="container">
+        <h1>{{ site.title }}</h1>
+        <div id="jumbotron-meta-info">
+            {% if site.location %}
+            <span class="meta-info">
+                <span class="octicon octicon-location"></span>
+                {{ site.location }}
+            </span> {% endif %}
+            {% if site.company %}
+            <span class="meta-info hvr-grow">
+                <span class="octicon octicon-organization"></span>
+                <a href="{{ site.company_url }}" target="_blank">{{ site.company }}</a>
+            </span> {% endif %}
+            {% if site.github_username %}
+            <span class="meta-info hvr-grow">
+                <span class="octicon octicon-mark-github"></span>
+                <a href="{{ site.github_url }}" target="_blank">@{{ site.github_username }}</a>
+            </span> {% endif %}
+        </div>
+    </div>
+</section>
+<section class="content container">
 
-<head>
-<!--
- Collection of CSS style elements
- -->
-    <title>Vivek Karna</title>
-    <style>
-    table, th, td{border:1px solid black;
-    border-collapse: collapse;
-    }
-    background-color:grey;
-    </style>
-</head>
+    <div class="row">
 
-<body>
-<h1 style = "text-align:center;">Welcome</h1> <!-- Welcome note-->
-<img src = "images/profile.jpg" alt = "Profile pic" style = "width:128px; height : 128px; float:right;">
-<p>
-    Hello, I am Vivek Karna. I am a graduate in Mechanical Engineering, but a Data Scientist by profession.
-</p>
-<p>
-    <a href = "https://github.com/vivekka93" target = "_blank">Github</a>
-    <a href = "https://in.linkedin.com/in/vivek-karna-918775a9" target = "_blank"> Linkedin</a>
-    <a href = "https://twitter.com/vivekka93" target = "_top">Twitter</a>
-    <a href = "">Blog posts</a>
-</p>
+        <!-- Post List -->
+        <div class="col-md-8">
 
-<h2>Professional Experience</h2>
-Predera- Associate Data Scientist
-    Worked on <href = "#p1">natural language processing</href>
+            <ol class="post-list">
+                {% for post in paginator.posts %}
+                <li class="post-list-item">
+                    <h2 class="post-list-title">
+                        <a class="hvr-underline-from-center" href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
+                    </h2>
+                    <p class="post-list-description">
+                        {{ post.excerpt | strip_html | strip }}
+                    </p>
+                    <p class="post-list-meta">
+                        <span class="octicon octicon-calendar"></span> {{ post.date | date: "%Y/%m/%d" }}
+                    </p>
+                </li>
+                {% endfor %}
+            </ol>
 
-<hr>
-<h2>Projects</h2>
-<!--
-A description of projects in the form of list
--->
-<p id = "p1">Natural language processing
-Built a custom named entity recognition engine ffrom scratch, by bootstrapping using various open source tools like spacy,
-    nltk, Stanford NLP parser
-    Built pipelines for collecting new mails from database, preprocessing the text and calling different APIs for different tasks
-    Implemented deep learning techniques for sentiment analysis and language modeling
+            <!-- Pagination -->
+            {% include pagination.html %}
 
-</p>
-<hr>
+            <!-- Comments -->
+            {% include disqus-comments.html %}
 
-<h2>Academics</h2>
-<!--
-A table to describe the institute, course, and percentange of marks secured
--->
-<table>
-    <caption><b>Education details</b></caption>
-    <tr>
-        <th>Course</th>
-        <th>Year</th>
-        <th>Institute</th>
-        <th>Percentage/ CGPA</th>
-    </tr>
-    <tr>
-        <td>Certication in Big Data Analytics and Optimization</td>
-        <td>2016</td>
-        <td>INSOFE, Hyderabad</td>
-        <td>-</td>
-    </tr>
-    <tr>
-        <td>Bachelor of Technology in Mechanical Engineering</td>
-        <td>2015</td>
-        <td>Manipal Institute of Technology, Manipal, India</td>
-        <td>8.05/10</td>
-    </tr>
-    <tr>
-        <td>12<sup>th</sup></td>
-        <td>2011</td>
-        <td>Delta Junior College</td>
-        <td>92.7%</td>
-    </tr>
-</table style = {border:1px solid black;}> <!--Adding a CSS border using 'border' property -->
-<ul style = "list-style-type:circle;">
-    <li>Bachelor of Technology in <b>Mechanical Engineering</b> from <i><b>Manipal Institute of Technology</b></i></li>
-    <li> Certificate course in Big Data Analytics and Optimization from <b>INSOFE</b>, Hyderabad</li>
-<li> X standard from St.Peter's High School, Warangal, Telangana</li>
-</ul>
+        </div>
 
-<hr>
+        <div class="col-md-4">
+            {% include sidebar-popular-repo.html %}
+        </div>
 
-<h2>Achievements</h2>
-<!--
-A list of achievements
--->
-<ul>
-<li> Winner of deCypher, an analytics competition conducted by AIG at Cypher, an analytics conference conducted by
-    Analytics India Magazine
-</li>
-<li>
-    100% scholarship based on merit for admission to Manipal Institute of Technology
-</li>
-<li>
-    One of the toppers of INSOFE, batch 16
-</li>
-</ul>
+    </div>
 
-</body>
-</html>
+</section>
+
